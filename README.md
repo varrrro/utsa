@@ -48,9 +48,3 @@ Here a few steps to quickly try out utsa, for production setup, please compile c
 
     # Display the time-stamp content.
     $ openssl ts -reply -in README.md.tsr -text
-
-## Powered by
-    
-![https://raw.githubusercontent.com/openssl/web/master/img/openssl-64.png](https://www.openssl.org/)
-
-![https://github.com/civetweb/civetweb/blob/658c8d48b3bcdb34338dae1b83167a8d7836e356/resources/civetweb_32x32@2.png?raw=true](https://github.com/civetweb/civetweb)

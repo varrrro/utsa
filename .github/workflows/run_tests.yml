@@ -9,8 +9,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Install dependencies
-        run: sudo apt install -y cmake time valgrind libc6-dev gcc g++
-        libssl-dev
+        run: sudo apt install -y cmake time valgrind libc6-dev gcc g++ libssl-dev
         
       - name: Generate test certificates
         run: ./tests/cfg/pki/create_tsa_certs
