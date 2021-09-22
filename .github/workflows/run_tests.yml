@@ -1,0 +1,22 @@
+name: Run tests
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: sudo apt install -y cmake time valgrind libc6-dev gcc g++
+        libssl-dev
+        
+      - name: Generate test certificates
+        run: ./tests/cfg/pki/create_tsa_certs
+
+      - name: Build project
+        run: cmake . -DBUNDLE_CIVETWEB=ON  && make
+
+      - name: Run tests
+        run: ./tests/external_test.sh

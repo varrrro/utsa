@@ -1,8 +1,17 @@
+### C ###
+# Prerequisites
+*.d
+
 # Object files
 *.o
 *.ko
 *.obj
 *.elf
+
+# Linker output
+*.ilk
+*.map
+*.exp
 
 # Precompiled Headers
 *.gch
@@ -30,14 +39,39 @@
 
 # Debug files
 *.dSYM/
+*.su
+*.idb
+*.pdb
 
-# cmake generated files
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+### CMake ###
+CMakeLists.txt.user
 CMakeCache.txt
-CMakeFiles/
+CMakeFiles
+CMakeScripts
+Testing
 Makefile
 cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+CTestTestfile.cmake
+_deps
 uts-server
+build/
 
+### CMake Patch ###
+# External projects
+*-prefix/
+
+### Misc ###
 # cert/ca/key test file
 tests/cfg/pki/*.pem
 tests/cfg/pki/*.srl
