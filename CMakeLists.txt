@@ -1,5 +1,5 @@
-cmake_minimum_required (VERSION 2.6)
-project (uts-server)
+cmake_minimum_required (VERSION 3.5)
+project (utsa)
 include(ExternalProject)
 
 if (CMAKE_VERSION VERSION_LESS "3.1")
@@ -13,7 +13,7 @@ endif ()
 set(VERSION 0.2.1)
 
 option(DEBUG              "compile with debug symbol"    OFF)
-option(BUNDLE_CIVETWEB    "bundle civetweb with uts-server"    OFF)
+option(BUNDLE_CIVETWEB    "bundle civetweb with utsa"    OFF)
 option(STATIC             "static linked binary" OFF)
 option(LINK_DL            "link dl" OFF)
 option(LINK_GCC_S         "link gcc_s" OFF)
@@ -75,7 +75,7 @@ add_custom_target(tag
     git push origin ${VERSION}
 )
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUTS_VERSION='\"${VERSION}\"'")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DUTSA_VERSION='\"${VERSION}\"'")
 
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_CURRENT_SOURCE_DIR}/cmake/")
 
@@ -155,14 +155,14 @@ include_directories(
     ${ARGP_INCLUDE_DIR}
 )
 
-add_executable(uts-server
-    src/cmd/uts-server.c
+add_executable(utsa
+    src/cmd/utsa.c
     src/lib/rfc3161.c
     src/lib/http.c
     src/lib/utils.c
 )
 
-target_link_libraries(uts-server
+target_link_libraries(utsa
     ${OPENSSL_LIBRARIES}
     ${LIBCIVETWEB_LIBRARIES}
     ${ARGP_LIBRARIES}
@@ -171,10 +171,10 @@ target_link_libraries(uts-server
     ${PTHREAD_LIBRARIES}
 )
 
-INSTALL(TARGETS uts-server
+INSTALL(TARGETS utsa
     RUNTIME DESTINATION bin
 )
 
 if(BUNDLE_CIVETWEB)
-    add_dependencies(uts-server civetweb)
+    add_dependencies(utsa civetweb)
 endif(BUNDLE_CIVETWEB)
