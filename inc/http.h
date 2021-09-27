@@ -14,9 +14,8 @@ int http_server_start(char *conffile, char *conf_wd, bool stdout_dbg);
     "<html>"                                                                      \
     "<head>"                                                                      \
     "  <meta charset=\"utf-8\">"                                                  \
-    "  <title>uts-server</title>"                                                 \
-    "  <meta name=\"author\" content=\"Pierre-Francois Carpentier\">"             \
-    "  <meta name=\"description\" content=\"uts-server\">"                        \
+    "  <title>utsa</title>"                                                       \
+    "  <meta name=\"description\" content=\"utsa\">"                              \
     "<style>"                                                                     \
     ".rcorners {"                                                                 \
     "  border-radius: 10px;"                                                      \
@@ -87,7 +86,7 @@ int http_server_start(char *conffile, char *conf_wd, bool stdout_dbg);
     "</head>"                                                                     \
     "<body>"                                                                      \
     "<div class=\"desc\">"                                                        \
-    "  uts-server, a simple RFC 3161 timestamp server"                            \
+    "  utsa, a simple RFC 3161 timestamp server"                            \
     "</div>"                                                                      \
     "<div class=\"rcorners\">"                                                    \
     "  For timestamping a file with OpenSSL and curl, run the following "         \
@@ -115,14 +114,6 @@ int http_server_start(char *conffile, char *conf_wd, bool stdout_dbg);
     "file</button></a>"                                                           \
     "    <a href=\"./tsa_cert.pem\" download><button "                            \
     "class=\"button\">Dowload tsa cert file</button></a>"                         \
-    "  </div>"                                                                    \
-    "</div>"                                                                      \
-    "<div class=\"footer\">"                                                      \
-    "  <div class=\"container\">"                                                 \
-    "    <a href=\"http://uts-server.readthedocs.org\" "                          \
-    "target=\"_blank\">uts-server</a>"                                            \
-    "    • © 2019 • Pierre-François Carpentier • Released under the MIT " \
-    "License"                                                                     \
     "  </div>"                                                                    \
     "</div>"                                                                      \
     "</body>"                                                                     \

@@ -14,7 +14,7 @@
 #include <sys/syslog.h>
 #include <unistd.h>
 
-const char *argp_program_version = UTS_VERSION;
+const char *argp_program_version = UTSA_VERSION;
 
 const char *argp_program_bug_address =
     "Pierre-Francois Carpentier <carpentier.pf@gmail.com>";
@@ -31,7 +31,8 @@ static struct argp_option options[] = {
 /* A description of the arguments we accept. */
 static char args_doc[] = "-c CONFFILE [-d] [-D] [-p <pidfile>]";
 
-struct arguments {
+struct arguments
+{
     char *args[2]; /* arg1 & arg2 */
     int daemonize;
     bool stdout_dbg;
@@ -39,12 +40,14 @@ struct arguments {
     char *pidfile;
 };
 
-static error_t parse_opt(int key, char *arg, struct argp_state *state) {
+static error_t parse_opt(int key, char *arg, struct argp_state *state)
+{
     /* Get the input argument from argp_parse, which we
        know is a pointer to our arguments structure. */
     struct arguments *arguments = (struct arguments *)state->input;
 
-    switch (key) {
+    switch (key)
+    {
     case 'd':
         arguments->daemonize = 1;
         break;
@@ -66,7 +69,8 @@ static error_t parse_opt(int key, char *arg, struct argp_state *state) {
 /* Our argp parser. */
 static struct argp argp = {options, parse_opt, args_doc, doc};
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv)
+{
     struct arguments args;
     args.conffile = NULL;
     args.pidfile = NULL;
@@ -78,23 +82,25 @@ int main(int argc, char **argv) {
     // get the full path of the configuration (daemon -> chdir to / concequently
     // full path is necessary)
     char conf_fp[PATH_MAX];
-    if (realpath(args.conffile, conf_fp) == NULL) {
+    if (realpath(args.conffile, conf_fp) == NULL)
+    {
         syslog(LOG_CRIT, "unable to get the full path of the configuration "
-                         "file, uts-server start failed");
+                         "file, utsa start failed");
         return EXIT_FAILURE;
     }
 
     init_pid(args.pidfile);
     // get the full path for the pid file
     char pid_file[PATH_MAX];
-    if ((args.pidfile != NULL) && realpath(args.pidfile, pid_file) == NULL) {
+    if ((args.pidfile != NULL) && realpath(args.pidfile, pid_file) == NULL)
+    {
         syslog(LOG_CRIT, "unable to get the full path of the pid "
-                         "file, uts-server start failed");
+                         "file, utsa start failed");
         return EXIT_FAILURE;
     }
 
     // get the directory containing the configuration file
-    // other uts-server files (ca, certs, etc) can be declared relatively to the
+    // other utsa files (ca, certs, etc) can be declared relatively to the
     // configuration file
     char *tmp_wd = strdup(conf_fp);
     char *conf_wd = dirname(tmp_wd);
@@ -105,22 +111,25 @@ int main(int argc, char **argv) {
         set_sig_handler();
 
     syslog(LOG_NOTICE,
-           "uts-server daemon starting with conf '%s' from working dir '%s'",
+           "utsa daemon starting with conf '%s' from working dir '%s'",
            conf_fp, conf_wd);
 
-    if (args.pidfile != NULL) {
-        if (write_pid(pid_file) == 0) {
+    if (args.pidfile != NULL)
+    {
+        if (write_pid(pid_file) == 0)
+        {
             syslog(LOG_CRIT, "failed to write pid file '%s'", pid_file);
             return EXIT_FAILURE;
         }
     }
 
-    while (1) {
+    while (1)
+    {
         ret = http_server_start(conf_fp, conf_wd, args.stdout_dbg);
         break;
     }
 
-    syslog(LOG_NOTICE, "uts-server daemon terminated.");
+    syslog(LOG_NOTICE, "utsa daemon terminated.");
     free(tmp_wd);
     closelog();
 
